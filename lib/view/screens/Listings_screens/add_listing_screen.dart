@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/enum/animals_categpry_enum.dart';
 import '../../../core/utils/helper_fuctions/format_validator.dart';
-import 'dart:io';
 import '../../common/vedio_player.dart';
 
 class AddListingScreen extends ConsumerWidget {
@@ -42,6 +41,15 @@ class AddListingScreen extends ConsumerWidget {
                 hintText: 'Age in months',
                 validate: (value) {
                   return FormValidators.validateNormalField(value, 'Age in months');
+                },
+              ),
+
+              CustomTextField(
+                keyboardType: TextInputType.numberWithOptions(decimal: false),
+                controller: watchProvider.priceController,
+                hintText: 'Price',
+                validate: (value) {
+                  return FormValidators.validateNormalField(value, 'Price');
                 },
               ),
 

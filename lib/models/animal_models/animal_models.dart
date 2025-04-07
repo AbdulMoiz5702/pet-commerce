@@ -12,6 +12,7 @@ import '../metaData_model/Sheep_Metadata_Model.dart';
 class AnimalModels {
   final GenderEnum gender;
   final String age;
+  final String price;
   final String sellerId;
   final AnimalsCategoryEnum category;
   final String name;
@@ -19,12 +20,14 @@ class AnimalModels {
   final List<Media> images;
   final String location;
   final List<String> impressions;
+  final List<String> wishList;
   final String phone;
   final String whatsapp;
   final String description;
-  final String videoUrl;
+  final String ? videoUrl;
 
   AnimalModels({
+    required this.wishList,
     required this.age,
     required this.gender,
     required this.sellerId,
@@ -37,7 +40,8 @@ class AnimalModels {
     required this.phone,
     required this.whatsapp,
     required this.description,
-    required this.videoUrl,
+    required this.price,
+    this.videoUrl,
   });
 
   factory AnimalModels.fromJson(Map<String, dynamic> json) {
@@ -78,15 +82,17 @@ class AnimalModels {
         .toList();
 
     return AnimalModels(
+      wishList: json['WishList'],
+      price: json['Price'],
       sellerId: json['seller_id'],
       category: AnimalsCategoryEnum.values.firstWhere((e) => e.toString() == 'PetType.${json['category']}'),
       name: json['name'],
       metadata: metadata,
       images: images,
       location: json['location'],
-      impressions: List<String>.from(json['impressions']),
-      phone: json['phone'],
-      whatsapp: json['whatsapp'],
+      impressions: List<String>.from(json['impression']),
+      phone: json['Phone'],
+      whatsapp: json['whatsApp'],
       gender: json['Gender'],
       age: json['Age'],
       description: json['Description'],
@@ -102,13 +108,15 @@ class AnimalModels {
       'metadata': metadata.toJson(),
       'images': images.map((image) => image.toJson()).toList(),
       'location': location,
-      'impressions': impressions,
-      'phone': phone,
-      'whatsapp': whatsapp,
-      'Gender':gender,
+      'impression': impressions,
+      'Phone': phone,
+      'whatsApp': whatsapp,
+      'Gender':gender.toString().split('.').last,
       'Age':age,
       'Description':description,
-      'video_url':videoUrl,
+      'video_url': videoUrl ?? '',
+      'Price':price,
+      'WishList':wishList,
     };
   }
 }
