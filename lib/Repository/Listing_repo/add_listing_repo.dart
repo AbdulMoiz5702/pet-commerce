@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-
 import '../../core/constants/app_constant/app_constant.dart';
 import '../../core/services/supbase_services/SupaStorageServices.dart';
 import '../../core/services/supbase_services/supaBase_services.dart';
@@ -9,13 +8,18 @@ import '../../models/image_model/image_model.dart';
 
 class AddListingRepo {
 
-  static Future<String?> uploadVideo({required BuildContext context, required File video,}) async {
-    return await StorageHelper.uploadFile(
-      userId: AppConstants.currentUser!.id,
-      category: AppConstants.userListingPictures,
-      file: video,
-      context: context,
-    );
+  static Future<String?> uploadVideo({required BuildContext context, required File ? video,}) async {
+    if(video != null){
+      return await StorageHelper.uploadFile(
+        userId: AppConstants.currentUser!.id,
+        category: AppConstants.userListingPictures,
+        file: video,
+        context: context,
+      );
+
+    }else{
+      return '';
+    }
   }
 
 

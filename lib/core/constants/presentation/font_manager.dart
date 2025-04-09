@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 class FontConstants {
-  static const String fontFamily = 'Montserrat';
+  static const String fontFamily = 'Quicksand';
 }
 
 class AppTextSize {

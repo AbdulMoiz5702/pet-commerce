@@ -15,6 +15,8 @@ final addListingProvider = StateNotifierProvider<AddListingNotifier,AddListingSt
   return AddListingNotifier();
 });
 
+
+
 class AddListingNotifier extends StateNotifier<AddListingState> {
   AddListingNotifier() :super(AddListingState(isLoading: false,
       category: AnimalsCategoryEnum.dogs,
@@ -34,6 +36,7 @@ class AddListingNotifier extends StateNotifier<AddListingState> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController whatsappController = TextEditingController();
   TextEditingController descriptionsController = TextEditingController();
+  TextEditingController priceController = TextEditingController();
 
 
   // Add controllers for category-specific metadata
@@ -47,6 +50,31 @@ class AddListingNotifier extends StateNotifier<AddListingState> {
   TextEditingController tankSizeController = TextEditingController();
   TextEditingController waterTypeController = TextEditingController();
   TextEditingController otherDescriptionController = TextEditingController();
+
+
+  void changeGender({required GenderEnum newGender}){
+    state = state.copyWith(gender: newGender);
+  }
+
+  void changeCategory({required AnimalsCategoryEnum newCategory}){
+    state = state.copyWith(category: newCategory);
+  }
+
+  void vaccinated({required bool isVaccinated }){
+    state = state.copyWith(isVaccinated: isVaccinated);
+  }
+
+  void pregnant({required bool isPregnant }){
+    state = state.copyWith(isPregnant: isPregnant);
+  }
+
+  void laysEggs({required bool laysEggs }){
+    state = state.copyWith(laysEggs: laysEggs);
+  }
+
+  void woolProduction({required bool woolProduction }){
+    state = state.copyWith(woolProduction: woolProduction);
+  }
 
 
   Future<void> requestAndPickImages({required BuildContext context}) async {
@@ -99,7 +127,7 @@ class AddListingNotifier extends StateNotifier<AddListingState> {
   Future<void> uploadAndStoreImages({
     required BuildContext context,
     required List<File> images,
-    required File video,
+    required File ? video,
   }) async {
     try {
       state = state.copyWith(isLoading: true);
@@ -108,15 +136,19 @@ class AddListingNotifier extends StateNotifier<AddListingState> {
         ExceptionHandler.handle('No image selected', context);
         return;
       }
+
       // Upload video first
       String? videoUrl;
       videoUrl = await AddListingRepo.uploadVideo(context: context, video: video);
+
+
       // Upload images
       List<Media> uploadedImages = await AddListingRepo.uploadImages(context: context, images: images);
-      // Check if any images were uploaded
       if (uploadedImages.isNotEmpty) {
-        // Prepare the AnimalModels object with metadata and uploaded media
         AnimalModels highlights = AnimalModels(
+          sellerName: userName,
+          wishList: [],
+          price: priceController.text.toString(),
           age: ageController.text.toString(),
           gender: state.gender!,
           sellerId: AppConstants.currentUser!.id,
@@ -129,11 +161,11 @@ class AddListingNotifier extends StateNotifier<AddListingState> {
           phone: phoneController.text.toString(),
           whatsapp: whatsappController.text.toString(),
           description: descriptionsController.text.toString(),
-          videoUrl: videoUrl.toString(),
+          videoUrl: videoUrl,
         );
-        // Insert data into SupaBase
         await AddListingRepo.insertDataToSupaBase(context: context, highlights: highlights);
       } else {
+        Navigator.pop(context);
         ExceptionHandler.handle('No images were uploaded', context);
       }
       state = state.copyWith(isLoading: false);
@@ -157,6 +189,7 @@ class AddListingState {
   final bool laysEggs;
   final bool woolProduction ;
   AddListingState({required this.isLoading,required this.category,required this.images,required this.gender,required this.video,required this.isPregnant,required this.isVaccinated,required this.laysEggs,required this.woolProduction});
+
   AddListingState copyWith({bool ?isLoading,AnimalsCategoryEnum ? category,List<File> ? images,GenderEnum ? gender,File ? video, bool ? isVaccinated,bool ? isPregnant,bool ?laysEggs, bool ? woolProduction}){
    return AddListingState(isLoading: isLoading ?? this.isLoading ,category: category ?? this.category,images: images ?? this.images,gender: gender ?? this.gender,video: video ?? this.video,isPregnant: isPregnant ?? this.isPregnant,isVaccinated: isVaccinated ?? this.isVaccinated,laysEggs: laysEggs ?? this.laysEggs,woolProduction: woolProduction ?? this.woolProduction);
   }

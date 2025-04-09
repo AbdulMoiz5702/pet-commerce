@@ -1,3 +1,4 @@
+import 'package:animals/view/screens/home_screens/Base_home_screen.dart';
 import 'package:animals/view/screens/user_profile/user_profile_screen.dart';
 import 'package:flutter/material.dart';
 import '../../../view/screens/Listings_screens/add_listing_screen.dart';
@@ -13,7 +14,7 @@ List<BottomNavigationBarItem> items = [
 ];
 
 List<Widget> screens =  [
-  Container(color: AppColor.successColor,),
+  BaseHomeScreen(),
   Container(color: AppColor.warningColor,),
   AddListingScreen(),
   UserProfileScreen(),

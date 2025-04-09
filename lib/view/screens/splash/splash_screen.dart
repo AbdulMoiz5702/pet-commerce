@@ -26,4 +26,6 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
       body: Center(child: Icon(Icons.pets)), // Show loading indicator
     );
   }
+
+
 }

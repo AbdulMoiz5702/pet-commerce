@@ -1,4 +1,7 @@
+
+
 import 'package:flutter/material.dart';
+
 import '../../core/enum/animals_categpry_enum.dart';
 import '../metaData_model/Bird_Metadata_Model.dart';
 import '../metaData_model/Cat_Metadata_Model.dart';
@@ -87,6 +90,8 @@ class MetadataManager {
         return OtherMetadata(
           description: otherDescriptionController.text,
         );
-      }
+      default:
+        return DogMetadata(breed: '', size: '', vaccinated: false);
+    }
   }
 }

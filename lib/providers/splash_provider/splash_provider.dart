@@ -1,3 +1,4 @@
+import 'package:animals/Repository/user_profile_repo/get_user_name_repo.dart';
 import 'package:animals/core/constants/app_constant/app_constant.dart';
 import 'package:animals/core/routes/routes.dart';
 import 'package:flutter/material.dart';
@@ -10,12 +11,16 @@ final splashProvider = Provider.autoDispose((ref){
 });
 
 class SplashNotifier {
+
+
   Future<void> checkUserStatus({required BuildContext context})async{
     if(AppConstants.supaBase.auth.currentUser != null){
       print('userId : ${AppConstants.supaBase.auth.currentUser!.id}');
+      GetUserName.getUserName();
       Navigator.pushReplacementNamed(context, Routes.bottomNav);
     }else{
       Navigator.pushNamed(context, Routes.signup);
     }
   }
+
 }
