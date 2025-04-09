@@ -1,11 +1,13 @@
 import 'package:animals/core/constants/app_constant/app_constant.dart';
 import 'package:animals/core/routes/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown,]);
   await Supabase.initialize(url: AppConstants.supaBaseUrl, anonKey: AppConstants.apiKey);
   runApp(const MyApp());
 }

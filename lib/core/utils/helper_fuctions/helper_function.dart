@@ -6,7 +6,6 @@ import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:video_player/video_player.dart';
-
 import '../../exceptions/net_work_excptions.dart';
 import '../dialogs/helper_dialogs.dart';
 

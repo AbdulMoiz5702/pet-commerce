@@ -127,4 +127,9 @@ Widget boldText({
 }
 
 
+Widget expandedText({required TextStyle style,required String title, double? height, TextAlign textAlign = TextAlign.start, int? maxLines, TextOverflow? overflow,}){
+  return Expanded(child: Text(title,style: style, textAlign: textAlign, maxLines: maxLines, overflow: overflow,),);
+}
+
+
 

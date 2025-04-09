@@ -8,13 +8,18 @@ import '../../models/image_model/image_model.dart';
 
 class AddListingRepo {
 
-  static Future<String?> uploadVideo({required BuildContext context, required File video,}) async {
-    return await StorageHelper.uploadFile(
-      userId: AppConstants.currentUser!.id,
-      category: AppConstants.userListingPictures,
-      file: video,
-      context: context,
-    );
+  static Future<String?> uploadVideo({required BuildContext context, required File ? video,}) async {
+    if(video != null){
+      return await StorageHelper.uploadFile(
+        userId: AppConstants.currentUser!.id,
+        category: AppConstants.userListingPictures,
+        file: video,
+        context: context,
+      );
+
+    }else{
+      return '';
+    }
   }
 
 

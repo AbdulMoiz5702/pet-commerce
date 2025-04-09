@@ -9,12 +9,13 @@ import '../../../providers/bottom_nav_provider/bottom_nav_provider.dart';
 
 
 
-class BottomNavScreen extends StatelessWidget {
+class BottomNavScreen extends ConsumerWidget {
   final bool isRequestChangeEmail ;
   const BottomNavScreen({super.key,this.isRequestChangeEmail = false});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
+    ref.read(bottomNavProvider.notifier).getUserName(context: context);
     return Scaffold(
       body: Consumer(builder: (context,ref,_){
         var data = ref.watch(bottomNavProvider.select((state)=> state.currentIndex));

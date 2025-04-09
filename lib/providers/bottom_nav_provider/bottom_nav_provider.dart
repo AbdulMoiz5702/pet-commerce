@@ -1,3 +1,6 @@
+import 'package:animals/Repository/user_profile_repo/get_user_name_repo.dart';
+import 'package:animals/core/exceptions/net_work_excptions.dart';
+import 'package:flutter/material.dart';
 import 'package:riverpod/riverpod.dart';
 
 
@@ -11,6 +14,14 @@ class BottomNavNotifier extends StateNotifier<BottomNavState>{
   BottomNavNotifier():super(BottomNavState(currentIndex: 0));
   void changeIndex({required int index}){
     state = state.copyWith(currentIndex: index);
+  }
+
+  Future<void> getUserName({required BuildContext context})async{
+    try{
+      await GetUserName.getUserName();
+    }catch(e){
+      ExceptionHandler.handle(e, context);
+    }
   }
 }
 

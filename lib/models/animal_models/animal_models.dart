@@ -1,4 +1,5 @@
 import 'package:animals/core/enum/animals_categpry_enum.dart';
+import 'package:intl/intl.dart';
 import '../image_model/image_model.dart';
 import '../metaData_model/Bird_Metadata_Model.dart';
 import '../metaData_model/Cat_Metadata_Model.dart';
@@ -25,6 +26,10 @@ class AnimalModels {
   final String whatsapp;
   final String description;
   final String ? videoUrl;
+  final String sellerName;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+
 
   AnimalModels({
     required this.wishList,
@@ -42,6 +47,10 @@ class AnimalModels {
     required this.description,
     required this.price,
     this.videoUrl,
+    required this.sellerName,
+    this.createdAt,
+    this.updatedAt,
+
   });
 
   factory AnimalModels.fromJson(Map<String, dynamic> json) {
@@ -82,26 +91,32 @@ class AnimalModels {
         .toList();
 
     return AnimalModels(
-      wishList: json['WishList'],
+      sellerName: json['Seller_name'],
+        wishList: List<String>.from(json['WishList'] ?? []),
       price: json['Price'],
       sellerId: json['seller_id'],
-      category: AnimalsCategoryEnum.values.firstWhere((e) => e.toString() == 'PetType.${json['category']}'),
+        category: AnimalsCategoryEnum.values.firstWhere(
+              (e) => e.toString() == 'PetType.${json['category']}',
+          orElse: () => AnimalsCategoryEnum.dogs,  // Default to 'dogs' if no match
+        ),
       name: json['name'],
       metadata: metadata,
       images: images,
       location: json['location'],
-      impressions: List<String>.from(json['impression']),
+      impressions: List<String>.from(json['impression'] ?? []),
       phone: json['Phone'],
-      whatsapp: json['whatsApp'],
-      gender: json['Gender'],
+      whatsapp: json['whatsApp'], gender: GenderEnum.values.firstWhere((e) => e.toString().split('.').last == json['Gender'],),
       age: json['Age'],
       description: json['Description'],
-      videoUrl:  json['video_url']
+      videoUrl:  json['video_url'],
+      createdAt: json['created_at'] != null ? DateTime.parse(json['created_at']) : null,
+      updatedAt: json['updated_at'] != null ? DateTime.parse(json['updated_at']) : null,
     );
   }
 
   Map<String, dynamic> toJson() {
-    return {
+    final data = {
+      'Seller_name': sellerName,
       'seller_id': sellerId,
       'category': category.toString().split('.').last,
       'name': name,
@@ -111,12 +126,24 @@ class AnimalModels {
       'impression': impressions,
       'Phone': phone,
       'whatsApp': whatsapp,
-      'Gender':gender.toString().split('.').last,
-      'Age':age,
-      'Description':description,
+      'Gender': gender.toString().split('.').last,
+      'Age': age,
+      'Description': description,
       'video_url': videoUrl ?? '',
-      'Price':price,
-      'WishList':wishList,
+      'Price': price,
+      'WishList': wishList,
     };
+
+    // Format DateTime to match 'yyyy-MM-dd HH:mm:ss.SSSSSS+00'
+    final DateFormat formatter = DateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
+    // If createdAt is not null, format it and add to the map
+    if (createdAt != null) {
+      data['created_at'] = '${formatter.format(createdAt!.toUtc())}+00';
+    }
+    // If updatedAt is not null, format it and add to the map
+    if (updatedAt != null) {
+      data['updated_at'] = '${formatter.format(updatedAt!.toUtc())}+00';
+    }
+    return data;
   }
 }

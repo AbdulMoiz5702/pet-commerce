@@ -52,6 +52,31 @@ class AddListingNotifier extends StateNotifier<AddListingState> {
   TextEditingController otherDescriptionController = TextEditingController();
 
 
+  void changeGender({required GenderEnum newGender}){
+    state = state.copyWith(gender: newGender);
+  }
+
+  void changeCategory({required AnimalsCategoryEnum newCategory}){
+    state = state.copyWith(category: newCategory);
+  }
+
+  void vaccinated({required bool isVaccinated }){
+    state = state.copyWith(isVaccinated: isVaccinated);
+  }
+
+  void pregnant({required bool isPregnant }){
+    state = state.copyWith(isPregnant: isPregnant);
+  }
+
+  void laysEggs({required bool laysEggs }){
+    state = state.copyWith(laysEggs: laysEggs);
+  }
+
+  void woolProduction({required bool woolProduction }){
+    state = state.copyWith(woolProduction: woolProduction);
+  }
+
+
   Future<void> requestAndPickImages({required BuildContext context}) async {
     try {
       List<File> images = await HelperFunctions.pickMultipleImages(
@@ -102,7 +127,7 @@ class AddListingNotifier extends StateNotifier<AddListingState> {
   Future<void> uploadAndStoreImages({
     required BuildContext context,
     required List<File> images,
-    required File video,
+    required File ? video,
   }) async {
     try {
       state = state.copyWith(isLoading: true);
@@ -113,13 +138,15 @@ class AddListingNotifier extends StateNotifier<AddListingState> {
       }
 
       // Upload video first
-      String? videoUrl;videoUrl = await AddListingRepo.uploadVideo(context: context, video: video);
+      String? videoUrl;
+      videoUrl = await AddListingRepo.uploadVideo(context: context, video: video);
 
 
       // Upload images
       List<Media> uploadedImages = await AddListingRepo.uploadImages(context: context, images: images);
       if (uploadedImages.isNotEmpty) {
         AnimalModels highlights = AnimalModels(
+          sellerName: userName,
           wishList: [],
           price: priceController.text.toString(),
           age: ageController.text.toString(),
