@@ -7,7 +7,7 @@ import '../../core/constants/presentation/font_manager.dart';
 
 Widget regularText({
   required String title,
-  Color color = AppColor.blackColor,
+  Color color = AppColor.mediumGrey,
   double fontSize = AppTextSize.regular,
   FontWeight fontWeight = AppTextWeight.regular,
   double? height,
@@ -31,7 +31,7 @@ Widget regularText({
 
 Widget lightText({
   required String title,
-  Color color = AppColor.blackColor,
+  Color color = AppColor.mediumGrey,
   double fontSize = AppTextSize.light,
   FontWeight fontWeight = AppTextWeight.light,
   double? height,
@@ -56,7 +56,7 @@ Widget lightText({
 
 Widget mediumText({
   required String title,
-  Color color = AppColor.blackColor,
+  Color color = AppColor.mediumGrey,
   double fontSize = AppTextSize.medium,
   FontWeight fontWeight = AppTextWeight.medium,
   double? height,
@@ -80,7 +80,7 @@ Widget mediumText({
 
 Widget semiBoldText({
   required String title,
-  Color color = AppColor.blackColor,
+  Color color = AppColor.mediumGrey,
   double fontSize = AppTextSize.semiBold,
   FontWeight fontWeight = AppTextWeight.semiBold,
   double? height,
@@ -104,7 +104,7 @@ Widget semiBoldText({
 
 Widget boldText({
   required String title,
-  Color color = AppColor.blackColor,
+  Color color = AppColor.primaryColor,
   double fontSize = AppTextSize.bold,
   FontWeight fontWeight = AppTextWeight.bold,
   double? height,

@@ -1,9 +1,11 @@
+import 'package:animals/core/enum/animals_categpry_enum.dart';
 import 'package:animals/models/user_model/user_profle_model.dart';
 import 'package:animals/view/screens/auth_screens/forgot_password.dart';
 import 'package:animals/view/screens/auth_screens/login_screen.dart';
 import 'package:animals/view/screens/auth_screens/signup_screen.dart';
 import 'package:animals/view/screens/bottom_nav/bottom_nav_screen.dart';
 import 'package:animals/view/screens/home_screens/Base_home_screen.dart';
+import 'package:animals/view/screens/home_screens/category_screens.dart';
 import 'package:animals/view/screens/splash/splash_screen.dart';
 import 'package:animals/view/screens/user_profile/update_user_details.dart';
 import 'package:animals/view/screens/user_profile/update_user_profile.dart';
@@ -34,6 +36,7 @@ class Routes {
 
   // ----------------- Home Screens routes ----------------------------- //
   static const String baseHomeScreen = 'baseHomeScreen';
+  static const String categoryScreens = 'categoryScreens';
 
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -61,6 +64,10 @@ class Routes {
     // ----------------- Home Screens routes ----------------------------- //
       case baseHomeScreen:
         return MaterialPageRoute(builder: (_) => BaseHomeScreen());
+      case categoryScreens:
+        final args = settings.arguments as Map<String, dynamic>;
+        final category = args['category'] as AnimalsCategoryEnum;
+        return MaterialPageRoute(builder: (_) => CategoryScreens(categoryEnum:category,));
 
     // ----------------- bottom Nav routes ----------------------------- //
       case bottomNav:

@@ -64,7 +64,9 @@ class ExceptionHandler {
       return InvalidFormatException().message;
     }  else if (error.toString().contains('AuthException') && error.toString().contains('invalid_credentials')) {
       return AuthExceptionCustom("Invalid login credentials").message;
-    }else if (error is PlatformException) {
+    }else if (error.toString().contains('email_address_invalid') && error.toString().contains('email_address_invalid')) {
+      return AuthExceptionCustom("Invalid Email ").message;
+    } else if (error is PlatformException) {
       return "A platform error occurred: ${error.message}";
     } else if (error is ApiException) {
       return error.message;
@@ -83,6 +85,8 @@ class ExceptionHandler {
     }
   }
 }
+
+
 
 
 

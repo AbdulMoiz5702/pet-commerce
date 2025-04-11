@@ -12,11 +12,12 @@ import '../../exceptions/net_work_excptions.dart';
 class SupaBaseServices {
 
 
-  static  getData({required String tableName, required String column, required dynamic value, required List<String> primaryKey, required BuildContext context,}) {
+  static Stream<List<Map<String, dynamic>>> getData({required String tableName, required String column, required dynamic value, required List<String> primaryKey, required BuildContext context,}) {
     try{
       return AppConstants.supaBase.from(tableName).stream(primaryKey: primaryKey).eq(column, value);
     }catch(e){
       ExceptionHandler.handle(e,context);
+      rethrow;
     }
   }
 
