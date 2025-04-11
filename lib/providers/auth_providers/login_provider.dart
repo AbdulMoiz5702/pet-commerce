@@ -1,10 +1,8 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:animals/Repository/auth_repo/login_repo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod/riverpod.dart';
-import 'package:supabase/supabase.dart';
 
 import '../../core/exceptions/net_work_excptions.dart';
 

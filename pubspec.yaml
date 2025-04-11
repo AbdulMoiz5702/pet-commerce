@@ -48,6 +48,14 @@ dependencies:
   video_player:
   uuid:
 
+  #flutter map
+  flutter_map: ^8.1.1
+  geolocator: ^13.0.4
+  latlong2: ^0.9.1
+  geocoding: ^3.0.0
+  #the typeahead package for showing list in search
+  flutter_typeahead: ^5.2.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
